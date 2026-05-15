@@ -1,4 +1,4 @@
-﻿window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", () => {
     initClassClock();
     setAppHeight();
     initDeck().catch((error) => {
@@ -6,6 +6,18 @@
         renderError(error.message || "Erro ao carregar slides.");
     });
 });
+
+const REMOTE_API_BASE = "https://controle_slides.starkfx.com.br";
+const SESSION_STORAGE_KEY = "controle_session_code";
+const STUDENT_NAME_STORAGE_KEY = "aluno_nome_aula";
+const STUDENT_TOKEN = "347c434f99f06225f0c0229c97baacb4859ebbab3821b273";
+const AULA_ID = 1;
+const FORCED_SESSION_CODE = "NHCFTHXN";
+const DEBUG_FLOW = true;
+function flow(event, payload = {}) {
+    if (!DEBUG_FLOW) return;
+    console.log("[SLIDE_FLOW]", new Date().toISOString(), event, payload);
+}
 
 async function initDeck() {
     const data = await loadJson("conteudo_apresentacao.json");
@@ -22,6 +34,8 @@ async function initDeck() {
     const counter = document.getElementById("counter");
     const progress = document.getElementById("progress");
     const dotRail = document.getElementById("dotRail");
+    const modeTela = window.location.hash.includes("tela");
+    const sessionCode = getSessionCode() || await resolveActiveSessionCode();
 
     deck.innerHTML = slides.map((slide, i) => renderSlide(slide, i, meta)).join("");
     dotRail.innerHTML = slides.map(() => "<button class=\"dot\" type=\"button\" aria-label=\"Ir para slide\"></button>").join("");
@@ -33,10 +47,13 @@ async function initDeck() {
 
     let current = 0;
     let wheelLock = false;
+    let remoteFollowActive = false;
     let slideHeight = window.innerHeight;
     let touchStartedInsideScrollable = false;
     const isMobileDeck = () => window.matchMedia("(max-width: 1024px)").matches;
     const getSlideNodes = () => Array.from(deck.querySelectorAll(".slide"));
+
+
     const getScrollableContainer = (target) => {
         if (!(target instanceof Element)) {
             return null;
@@ -47,6 +64,7 @@ async function initDeck() {
         }
         return container.scrollHeight > container.clientHeight + 2 ? container : null;
     };
+
     const syncMinimizedPreviewToActiveSlide = () => {
         if (document.body.classList.contains("media-focus-mode")) {
             return;
@@ -96,8 +114,17 @@ async function initDeck() {
         }
     };
 
+    const collapseMediaOnSlideChange = () => {
+        const previews = Array.from(document.querySelectorAll("[data-media-preview]"));
+        previews.forEach((preview) => {
+            preview.__media?.close?.();
+        });
+    };
+
     function goTo(index) {
+        collapseMediaOnSlideChange();
         current = clamp(index, 0, slides.length - 1);
+        flow("goto_local", { current: current + 1 });
         deck.style.transform = `translateY(-${current * slideHeight}px)`;
 
         getSlideNodes().forEach((node, idx) => {
@@ -118,8 +145,8 @@ async function initDeck() {
     function next() { goTo(current + 1); }
     function prev() { goTo(current - 1); }
 
-    prevBtn.addEventListener("click", prev);
-    nextBtn.addEventListener("click", next);
+    prevBtn.addEventListener("click", () => { if (!remoteFollowActive) prev(); });
+    nextBtn.addEventListener("click", () => { if (!remoteFollowActive) next(); });
     window.addEventListener("resize", () => {
         setAppHeight();
         slideHeight = window.innerHeight;
@@ -134,10 +161,12 @@ async function initDeck() {
             return;
         }
         if (["ArrowRight"].includes(event.key)) {
+            if (remoteFollowActive) return;
             event.preventDefault();
             next();
         }
         if (["ArrowLeft"].includes(event.key)) {
+            if (remoteFollowActive) return;
             event.preventDefault();
             prev();
         }
@@ -148,6 +177,9 @@ async function initDeck() {
             return;
         }
         if (getScrollableContainer(event.target)) {
+            return;
+        }
+        if (remoteFollowActive) {
             return;
         }
         if (wheelLock || Math.abs(event.deltaY) < 24) {
@@ -176,6 +208,9 @@ async function initDeck() {
             touchStartedInsideScrollable = false;
             return;
         }
+        if (remoteFollowActive) {
+            return;
+        }
         const delta = startY - event.changedTouches[0].clientY;
         if (Math.abs(delta) < 45) {
             return;
@@ -185,6 +220,24 @@ async function initDeck() {
 
     bindQuizToggle();
     bindMediaFullscreen();
+    bindDoubtsPanel({ modeTela, sessionCode });
+    bindRemoteSession({
+        sessionCode,
+        goTo,
+        getCurrent: () => current,
+        getPreview: () => getSlideNodes()[current]?.querySelector("[data-media-preview]"),
+        shouldFollow: (sessionItem) => Boolean(sessionItem?.acompanhar_ativo),
+        onFollowChange: (isOn) => {
+            remoteFollowActive = Boolean(isOn);
+            prevBtn.disabled = remoteFollowActive || current === 0;
+            nextBtn.disabled = remoteFollowActive || current === slides.length - 1;
+            dots.forEach((dot) => {
+                dot.disabled = remoteFollowActive;
+                dot.style.pointerEvents = remoteFollowActive ? "none" : "auto";
+                dot.style.opacity = remoteFollowActive ? "0.45" : "1";
+            });
+        }
+    });
     slideHeight = window.innerHeight;
     goTo(0);
 }
@@ -260,7 +313,7 @@ function renderSlide(slide, index, meta) {
                     <span class="browser-dot red"></span>
                     <span class="browser-dot yellow"></span>
                     <span class="browser-dot green"></span>
-                    <span class="address-bar">walter-fx.github.io/aula-imunizacao</span>
+                    <span class="address-bar">starkfx.com.br/aulas</span>
                 </div>
                 <div class="hero-site-body hero-qr-body">
                     <div class="media-loader" aria-hidden="true">
@@ -296,7 +349,7 @@ function renderImage(src, alt) {
                 <span class="browser-dot red"></span>
                 <span class="browser-dot yellow"></span>
                 <span class="browser-dot green"></span>
-                <span class="address-bar">walter-fx.github.io/aula-imunizacao</span>
+                <span class="address-bar">starkfx.com.br/aulas</span>
             </div>
             <div class="media-window-body">
                 <div class="media-loader" aria-hidden="true">
@@ -323,15 +376,10 @@ function renderReference(item) {
     if (typeof item === "object" && item.url) {
         const label = escapeHtml(item.titulo || item.label || item.url);
         const url = escapeHtml(item.url);
-        return `
-            <article class="ref-card">
-                <a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>
-            </article>
-        `;
+        return `<article class="ref-card"><a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a></article>`;
     }
 
-    const text = escapeHtml(String(item));
-    return `<article class="ref-card">${text}</article>`;
+    return `<article class="ref-card">${escapeHtml(String(item))}</article>`;
 }
 
 function renderChips(items) {
@@ -456,13 +504,7 @@ function bindMediaFullscreen() {
             preview.classList.add("media-expanded");
             document.body.classList.add("media-focus-mode");
         };
-        preview.__media = {
-            setMinimized,
-            isMinimized,
-            isExpanded: () => expanded,
-            open,
-            close
-        };
+        preview.__media = { setMinimized, isMinimized, isExpanded: () => expanded, open, close };
 
         const runSingleClickAction = () => {
             if (isMobileDeck()) {
@@ -624,8 +666,6 @@ function escapeHtml(value) {
         .replaceAll("'", "&#39;");
 }
 
-
-
 function initClassClock() {
     const clock = document.getElementById("classClock");
     const text = document.getElementById("clockText");
@@ -635,35 +675,12 @@ function initClassClock() {
 
     const updateClock = () => {
         const now = new Date();
-        const minutes = now.getHours() * 60 + now.getMinutes();
-
-        const preBreakStart = 9 * 60 + 55;
-        const breakStart = 10 * 60;
-        const breakEnd = 10 * 60 + 15;
-        const preEndStart = 10 * 60 + 55;
-        const classEnd = 11 * 60;
-
         clock.classList.remove("is-blinking", "is-break", "is-end");
-
-        if (minutes >= breakStart && minutes < breakEnd) {
-            text.textContent = "INTERVALO";
-            clock.classList.add("is-break");
-            return;
-        }
 
         const hh = String(now.getHours()).padStart(2, "0");
         const mm = String(now.getMinutes()).padStart(2, "0");
         const ss = String(now.getSeconds()).padStart(2, "0");
         text.textContent = `${hh}:${mm}:${ss}`;
-
-        if ((minutes >= preBreakStart && minutes < breakStart) || (minutes >= preEndStart && minutes < classEnd)) {
-            clock.classList.add("is-blinking");
-            return;
-        }
-
-        if (minutes >= classEnd) {
-            clock.classList.add("is-end");
-        }
     };
 
     updateClock();
@@ -672,4 +689,353 @@ function initClassClock() {
 
 function setAppHeight() {
     document.documentElement.style.setProperty("--app-height", `${window.innerHeight}px`);
+}
+
+function getSessionCode() {
+    const fromQuery = new URLSearchParams(window.location.search).get("sessao");
+    if (FORCED_SESSION_CODE) {
+        localStorage.setItem(SESSION_STORAGE_KEY, FORCED_SESSION_CODE);
+        return FORCED_SESSION_CODE;
+    }
+    if (fromQuery) {
+        localStorage.setItem(SESSION_STORAGE_KEY, fromQuery);
+        return fromQuery;
+    }
+    return localStorage.getItem(SESSION_STORAGE_KEY) || "";
+}
+
+function setSessionCode(code) {
+    if (!code) {
+        localStorage.removeItem(SESSION_STORAGE_KEY);
+        return;
+    }
+    localStorage.setItem(SESSION_STORAGE_KEY, code);
+}
+
+async function remoteApi(path, token, options = {}) {
+    flow("api_request", { path, method: options.method || "GET" });
+    const response = await fetch(`${REMOTE_API_BASE}${path}`, {
+        ...options,
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            ...(options.headers || {})
+        }
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        flow("api_error", { path, method: options.method || "GET", status: response.status, data });
+        throw new Error(data.error || `HTTP ${response.status}`);
+    }
+    flow("api_response", { path, method: options.method || "GET", data });
+    return data;
+}
+
+async function resolveActiveSessionCode() {
+    try {
+        const data = await remoteApi(`/v1/sessoes-ativas?aula_id=${AULA_ID}`, STUDENT_TOKEN, { method: "GET" });
+        const code = data?.item?.codigo ? String(data.item.codigo) : "";
+        if (code) {
+            setSessionCode(code);
+            return code;
+        }
+    } catch (error) {
+        console.error("Falha ao resolver sessao ativa:", error);
+    }
+    return "";
+}
+
+function bindRemoteSession({ sessionCode, goTo, getCurrent, getPreview, shouldFollow, onFollowChange }) {
+    let lastImageOpen = null;
+    let lastSlideRemote = null;
+    let currentSession = sessionCode || "";
+    let highlightEl = null;
+    let checkActiveCounter = 0;
+    const closeAllMedia = () => {
+        const previews = Array.from(document.querySelectorAll("[data-media-preview]"));
+        previews.forEach((preview) => {
+            preview.__media?.close?.();
+            preview.__media?.setMinimized?.(false);
+        });
+        document.body.classList.remove("media-focus-mode");
+    };
+
+    const showHighlight = (item) => {
+        const isDuvidaHighlight = Boolean(item?.destaque_ativo) && item?.destaque_tipo === "duvida";
+        if (!isDuvidaHighlight) {
+            if (highlightEl) {
+                highlightEl.remove();
+                highlightEl = null;
+            }
+            return;
+        }
+        if (!highlightEl) {
+            highlightEl = document.createElement("div");
+            highlightEl.style.position = "fixed";
+            highlightEl.style.left = "14px";
+            highlightEl.style.bottom = "84px";
+            highlightEl.style.zIndex = "110";
+            highlightEl.style.maxWidth = "min(560px, calc(100vw - 28px))";
+            highlightEl.style.background = "rgba(5,11,23,.95)";
+            highlightEl.style.border = "1px solid rgba(155,181,230,.4)";
+            highlightEl.style.borderRadius = "12px";
+            highlightEl.style.padding = "10px";
+            highlightEl.style.color = "#eaf2ff";
+            highlightEl.style.fontFamily = "Outfit, sans-serif";
+            document.body.appendChild(highlightEl);
+        }
+        highlightEl.innerHTML = `
+          <p style="margin:0 0 6px;font-size:12px;opacity:.8;">❓ Dúvida • ${escapeHtml(item.destaque_nome || "Aluno")}</p>
+          <p style="margin:0;">${escapeHtml(item.destaque_mensagem || "")}</p>
+        `;
+    };
+
+    const tick = async () => {
+        try {
+            // Revalida periodicamente a sessao ativa para nao ficar preso em sessao antiga
+            checkActiveCounter += 1;
+            if (!currentSession || checkActiveCounter % 6 === 0) {
+                const activeCode = await resolveActiveSessionCode();
+                if (activeCode && activeCode !== currentSession) {
+                    flow("session_switch", { from: currentSession, to: activeCode });
+                    currentSession = activeCode;
+                    lastImageOpen = null;
+                }
+                if (!currentSession) {
+                    return;
+                }
+            }
+            const data = await remoteApi(`/v1/sessoes/${currentSession}`, STUDENT_TOKEN, { method: "GET" });
+            const item = data.item || {};
+            if (item.status && item.status !== "aberta") {
+                flow("session_closed_detected", { currentSession, status: item.status });
+                currentSession = "";
+                setSessionCode("");
+                return;
+            }
+            const slideRemote = Math.max(1, Number(item.slide_atual || 1));
+            const imageOpen = Boolean(item.imagem_aberta);
+            flow("remote_tick", { session: currentSession, slideRemote, imageOpen, localCurrent: getCurrent() + 1, follow: shouldFollow(item) });
+            showHighlight(item);
+            onFollowChange?.(shouldFollow(item));
+
+            if (shouldFollow(item) && slideRemote - 1 !== getCurrent()) {
+                goTo(slideRemote - 1);
+            }
+
+            const slideChanged = slideRemote !== lastSlideRemote;
+            if (imageOpen !== lastImageOpen || (imageOpen && slideChanged)) {
+                if (imageOpen) {
+                    flow("remote_image_open", { slideLocal: getCurrent() + 1, slideRemote });
+                    window.requestAnimationFrame(() => {
+                        const preview = getPreview();
+                        preview?.__media?.setMinimized?.(false);
+                        preview?.__media?.open?.();
+                    });
+                } else {
+                    flow("remote_image_close_all", { slideLocal: getCurrent() + 1 });
+                    closeAllMedia();
+                }
+                lastImageOpen = imageOpen;
+            }
+            lastSlideRemote = slideRemote;
+        } catch (error) {
+            console.error("Falha no sync remoto:", error);
+            currentSession = "";
+            setSessionCode("");
+        }
+    };
+
+    tick();
+    window.setInterval(tick, 1200);
+}
+
+function bindDoubtsPanel({ modeTela, sessionCode }) {
+    if (modeTela) {
+        let currentSession = sessionCode || "";
+        const handBell = document.createElement("div");
+        handBell.style.position = "fixed";
+        handBell.style.top = "14px";
+        handBell.style.right = "14px";
+        handBell.style.zIndex = "120";
+        handBell.style.width = "54px";
+        handBell.style.height = "54px";
+        handBell.style.borderRadius = "999px";
+        handBell.style.background = "rgba(13,24,43,.96)";
+        handBell.style.border = "1px solid rgba(155,181,230,.45)";
+        handBell.style.display = "none";
+        handBell.style.placeItems = "center";
+        handBell.style.fontSize = "24px";
+        handBell.style.boxShadow = "0 8px 20px rgba(0,0,0,.35)";
+        handBell.innerHTML = `
+          <span aria-hidden="true">✋</span>
+          <span id="handBadge" style="position:absolute;top:-8px;right:-2px;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#d72d2d;color:#fff;font-size:12px;font-weight:700;display:none;align-items:center;justify-content:center;">0</span>
+        `;
+        document.body.appendChild(handBell);
+        const handBadge = handBell.querySelector("#handBadge");
+        const load = async () => {
+            try {
+                if (!currentSession) {
+                    currentSession = await resolveActiveSessionCode();
+                    if (!currentSession) {
+                        handBell.style.display = "none";
+                        if (handBadge) {
+                            handBadge.style.display = "none";
+                        }
+                        return;
+                    }
+                }
+                const data = await remoteApi(`/v1/sessoes/${currentSession}/duvidas?status=nova`, STUDENT_TOKEN, { method: "GET" });
+                const items = Array.isArray(data.items) ? data.items : [];
+                const maoCount = items.length;
+                if (handBadge) {
+                    if (maoCount > 0) {
+                        handBell.style.display = "grid";
+                        handBadge.textContent = String(maoCount);
+                        handBadge.style.display = "inline-flex";
+                    } else {
+                        handBell.style.display = "none";
+                        handBadge.style.display = "none";
+                    }
+                }
+            } catch (error) {
+                currentSession = "";
+            }
+        };
+        load();
+        window.setInterval(load, 2500);
+        return;
+    }
+
+    const fab = document.createElement("div");
+    fab.style.position = "fixed";
+    fab.style.right = "14px";
+    fab.style.bottom = "90px";
+    fab.style.zIndex = "80";
+    fab.style.display = "grid";
+    fab.style.gap = "10px";
+    fab.innerHTML = `
+      <button id="fabMao" type="button" title="Levantar a mão" style="width:56px;height:56px;border:none;border-radius:999px;background:#5f4a1d;color:#fff;font-size:24px;cursor:pointer;">✋</button>
+      <button id="fabDuvida" type="button" title="Enviar dúvida" style="width:56px;height:56px;border:none;border-radius:999px;background:#1d5f59;color:#fff;font-size:24px;cursor:pointer;">?</button>
+    `;
+    document.body.appendChild(fab);
+
+    const maoBtn = fab.querySelector("#fabMao");
+    const duvidaBtn = fab.querySelector("#fabDuvida");
+    if (!maoBtn || !duvidaBtn) {
+        return;
+    }
+
+    maoBtn.addEventListener("click", async () => {
+        const alunoNome = await ensureStudentName();
+        if (!alunoNome) {
+            return;
+        }
+        let currentSession = sessionCode || getSessionCode() || await resolveActiveSessionCode();
+        if (!currentSession) {
+            notify("success", "Mão levantada.");
+            return;
+        }
+        try {
+            await remoteApi(`/v1/sessoes/${currentSession}/duvidas`, STUDENT_TOKEN, {
+                method: "POST",
+                body: JSON.stringify({ aluno_nome: alunoNome, mensagem: "", tipo: "mao" })
+            });
+            notify("success", "Mão levantada enviada.");
+        } catch (error) {
+            notify("error", `Falha ao enviar: ${error.message}`);
+        }
+    });
+
+    duvidaBtn.addEventListener("click", async () => {
+        const alunoNome = await ensureStudentName();
+        if (!alunoNome) {
+            return;
+        }
+        let mensagem = "";
+        if (window.Swal) {
+            const result = await window.Swal.fire({
+                title: "Digite sua dúvida",
+                input: "textarea",
+                inputPlaceholder: "Escreva sua pergunta",
+                showCancelButton: true,
+                confirmButtonText: "Enviar",
+                cancelButtonText: "Cancelar",
+                inputValidator: (value) => (!value || value.trim().length < 4 ? "Digite ao menos 4 caracteres." : null)
+            });
+            if (!result.isConfirmed) return;
+            mensagem = String(result.value || "");
+        } else {
+            mensagem = String(window.prompt("Digite sua dúvida:") || "");
+        }
+        if (!mensagem || mensagem.trim().length < 4) return;
+        let currentSession = sessionCode || getSessionCode() || await resolveActiveSessionCode();
+        if (!currentSession) {
+            notify("success", "Dúvida registrada localmente.");
+            return;
+        }
+        try {
+            await remoteApi(`/v1/sessoes/${currentSession}/duvidas`, STUDENT_TOKEN, {
+                method: "POST",
+                body: JSON.stringify({ aluno_nome: alunoNome, mensagem: mensagem.trim(), tipo: "duvida" })
+            });
+            notify("success", "Dúvida enviada.");
+        } catch (error) {
+            notify("error", `Falha ao enviar: ${error.message}`);
+        }
+    });
+}
+
+function notify(icon, text) {
+    if (window.Swal) {
+        window.Swal.fire({
+            toast: true,
+            position: "top-end",
+            timer: 1900,
+            showConfirmButton: false,
+            icon,
+            title: text
+        });
+        return;
+    }
+    window.alert(text);
+}
+
+async function ensureStudentName() {
+    const saved = String(localStorage.getItem(STUDENT_NAME_STORAGE_KEY) || "").trim();
+    if (saved) {
+        return saved;
+    }
+    if (window.Swal) {
+        const result = await window.Swal.fire({
+            title: "Seu nome",
+            input: "text",
+            inputPlaceholder: "Digite seu nome",
+            confirmButtonText: "Salvar",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            inputValidator: (value) => {
+                if (!value || value.trim().length < 2) {
+                    return "Informe pelo menos 2 caracteres.";
+                }
+                return null;
+            }
+        });
+        if (!result.isConfirmed) {
+            return "";
+        }
+        const name = String(result.value || "").trim().slice(0, 120);
+        if (!name) {
+            return "";
+        }
+        localStorage.setItem(STUDENT_NAME_STORAGE_KEY, name);
+        return name;
+    }
+    const fallback = window.prompt("Digite seu nome:");
+    const name = String(fallback || "").trim().slice(0, 120);
+    if (!name) {
+        return "";
+    }
+    localStorage.setItem(STUDENT_NAME_STORAGE_KEY, name);
+    return name;
 }

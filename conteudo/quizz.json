@@ -1,0 +1,228 @@
+{
+    "quiz_final": {
+        "titulo": "Quiz Final — Sistema Cardiovascular",
+        "descricao": "Avaliação final sobre anatomia, fisiologia e aplicação clínica do sistema cardiovascular para técnicos de enfermagem.",
+        "nivel": "técnico de enfermagem",
+        "quantidade_questoes": 15,
+        "pontuacao_total": 15,
+        "tempo_sugerido_minutos": 20,
+        "questoes": [
+            {
+                "id": 1,
+                "dificuldade": "facil",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual órgão funciona como a bomba do sistema cardiovascular?",
+                "alternativas": [
+                    "Pulmão",
+                    "Cérebro",
+                    "Coração",
+                    "Fígado"
+                ],
+                "resposta_correta": "Coração",
+                "comentario": "O coração é responsável por impulsionar o sangue através dos vasos sanguíneos."
+            },
+            {
+                "id": 2,
+                "dificuldade": "facil",
+                "tipo": "multipla_escolha",
+                "pergunta": "As artérias são responsáveis por:",
+                "alternativas": [
+                    "Levar sangue para fora do coração",
+                    "Produzir sangue",
+                    "Filtrar o sangue",
+                    "Transportar urina"
+                ],
+                "resposta_correta": "Levar sangue para fora do coração",
+                "comentario": "As artérias conduzem sangue do coração para os tecidos."
+            },
+            {
+                "id": 3,
+                "dificuldade": "facil",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual vaso sanguíneo realiza trocas entre sangue e tecidos?",
+                "alternativas": [
+                    "Artéria",
+                    "Veia",
+                    "Capilar",
+                    "Aorta"
+                ],
+                "resposta_correta": "Capilar",
+                "comentario": "Os capilares possuem paredes finas que permitem trocas metabólicas."
+            },
+            {
+                "id": 4,
+                "dificuldade": "facil",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual lado do coração bombeia sangue para o corpo?",
+                "alternativas": [
+                    "Direito",
+                    "Esquerdo",
+                    "Inferior",
+                    "Posterior"
+                ],
+                "resposta_correta": "Esquerdo",
+                "comentario": "O lado esquerdo envia sangue arterial para a circulação sistêmica."
+            },
+            {
+                "id": 5,
+                "dificuldade": "facil",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual é a frequência cardíaca normal em adultos?",
+                "alternativas": [
+                    "20 a 40 bpm",
+                    "40 a 60 bpm",
+                    "60 a 100 bpm",
+                    "120 a 160 bpm"
+                ],
+                "resposta_correta": "60 a 100 bpm",
+                "comentario": "Essa é a faixa considerada normal para adultos em repouso."
+            },
+            {
+                "id": 6,
+                "dificuldade": "media",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual válvula separa o átrio esquerdo do ventrículo esquerdo?",
+                "alternativas": [
+                    "Pulmonar",
+                    "Tricúspide",
+                    "Mitral",
+                    "Aórtica"
+                ],
+                "resposta_correta": "Mitral",
+                "comentario": "A válvula mitral controla o fluxo sanguíneo no lado esquerdo do coração."
+            },
+            {
+                "id": 7,
+                "dificuldade": "media",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual estrutura é conhecida como marca-passo natural do coração?",
+                "alternativas": [
+                    "Miocárdio",
+                    "Pericárdio",
+                    "Nó sinoatrial",
+                    "Válvula mitral"
+                ],
+                "resposta_correta": "Nó sinoatrial",
+                "comentario": "O nó sinoatrial gera os impulsos elétricos cardíacos."
+            },
+            {
+                "id": 8,
+                "dificuldade": "media",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual componente sanguíneo é responsável pelo transporte de oxigênio?",
+                "alternativas": [
+                    "Plaquetas",
+                    "Leucócitos",
+                    "Hemácias",
+                    "Plasma"
+                ],
+                "resposta_correta": "Hemácias",
+                "comentario": "As hemácias possuem hemoglobina, responsável pelo transporte de oxigênio."
+            },
+            {
+                "id": 9,
+                "dificuldade": "media",
+                "tipo": "multipla_escolha",
+                "pergunta": "Como é chamada a circulação entre coração e pulmões?",
+                "alternativas": [
+                    "Sistêmica",
+                    "Coronariana",
+                    "Pulmonar",
+                    "Portal"
+                ],
+                "resposta_correta": "Pulmonar",
+                "comentario": "A circulação pulmonar leva sangue aos pulmões para trocas gasosas."
+            },
+            {
+                "id": 10,
+                "dificuldade": "media",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual camada muscular do coração é responsável pelas contrações?",
+                "alternativas": [
+                    "Pericárdio",
+                    "Miocárdio",
+                    "Endocárdio",
+                    "Epicárdio"
+                ],
+                "resposta_correta": "Miocárdio",
+                "comentario": "O miocárdio é a principal camada muscular cardíaca."
+            },
+            {
+                "id": 11,
+                "dificuldade": "dificil",
+                "tipo": "multipla_escolha",
+                "pergunta": "Paciente apresenta frequência cardíaca de 130 bpm. Essa alteração é chamada de:",
+                "alternativas": [
+                    "Bradicardia",
+                    "Taquicardia",
+                    "Hipotensão",
+                    "Arritmia sinusal"
+                ],
+                "resposta_correta": "Taquicardia",
+                "comentario": "Frequência cardíaca acima de 100 bpm caracteriza taquicardia."
+            },
+            {
+                "id": 12,
+                "dificuldade": "dificil",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual sinal pode indicar infarto agudo do miocárdio?",
+                "alternativas": [
+                    "Dor abdominal leve",
+                    "Dor torácica irradiando para braço esquerdo",
+                    "Coceira na pele",
+                    "Dor lombar isolada"
+                ],
+                "resposta_correta": "Dor torácica irradiando para braço esquerdo",
+                "comentario": "Dor irradiada é um sinal clássico de infarto."
+            },
+            {
+                "id": 13,
+                "dificuldade": "dificil",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual estrutura impede o refluxo do sangue dentro do coração?",
+                "alternativas": [
+                    "Septos",
+                    "Capilares",
+                    "Válvulas cardíacas",
+                    "Artérias coronárias"
+                ],
+                "resposta_correta": "Válvulas cardíacas",
+                "comentario": "As válvulas garantem fluxo sanguíneo unidirecional."
+            },
+            {
+                "id": 14,
+                "dificuldade": "dificil",
+                "tipo": "multipla_escolha",
+                "pergunta": "A pressão arterial representa:",
+                "alternativas": [
+                    "Quantidade de sangue no corpo",
+                    "Velocidade do sangue",
+                    "Força exercida pelo sangue nas paredes arteriais",
+                    "Quantidade de oxigênio no sangue"
+                ],
+                "resposta_correta": "Força exercida pelo sangue nas paredes arteriais",
+                "comentario": "A pressão arterial é um importante sinal vital cardiovascular."
+            },
+            {
+                "id": 15,
+                "dificuldade": "dificil",
+                "tipo": "multipla_escolha",
+                "pergunta": "Qual profissional deve monitorar sinais vitais e reconhecer alterações cardiovasculares precocemente?",
+                "alternativas": [
+                    "Somente médicos",
+                    "Somente fisioterapeutas",
+                    "Equipe de enfermagem",
+                    "Somente farmacêuticos"
+                ],
+                "resposta_correta": "Equipe de enfermagem",
+                "comentario": "A enfermagem possui papel fundamental na monitorização cardiovascular."
+            }
+        ],
+        "mensagem_final": "Parabéns! Você concluiu o quiz sobre Sistema Cardiovascular aplicado à Enfermagem.",
+        "certificacao": {
+            "aprovacao_percentual": 70,
+            "mensagem_aprovacao": "Excelente desempenho! Você demonstrou bom conhecimento sobre o sistema cardiovascular.",
+            "mensagem_recuperacao": "Revise os conteúdos e tente novamente para fortalecer seus conhecimentos."
+        }
+    }
+}

@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Controle Remoto - Slides</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root { --bg:#070c15; --card:#121d30; --text:#f2f6ff; --muted:#9ab0d6; --accent:#2ec4b6; --line:#2a3e66; --edge:#3b5178; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Segoe UI",Tahoma,sans-serif; background:radial-gradient(900px 500px at 50% -10%, #192842 0%, transparent 60%), linear-gradient(180deg,#0a1220,#0d1525); color:var(--text); min-height:100vh; display:grid; place-items:center; padding:14px; }
+    .remote { width:min(560px,100%); background:linear-gradient(180deg,#15253d,#101b2e); border:1px solid var(--line); border-radius:24px; padding:14px; box-shadow:0 20px 36px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08); display:grid; gap:12px; }
+    .top { display:grid; gap:4px; text-align:center; }
+    .title { margin:0; font-size:1rem; font-weight:700; }
+    .sub { margin:0; color:var(--muted); font-size:.88rem; }
+    .counter,.sessao { text-align:center; padding:8px; border:1px dashed var(--line); border-radius:10px; color:var(--muted); font-size:.9rem; }
+    .preview { border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#091224; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04); }
+    .preview img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; background:#070d1a; }
+    .meta { padding:10px; border-top:1px solid var(--line); }
+    .meta p { margin:0; font-size:.9rem; color:#e0e9ff; line-height:1.3; }
+    .buttons { display:grid; gap:10px; }
+    .dpad-wrap { display:grid; place-items:center; padding:6px 0 2px; }
+    .dpad {
+      width:248px;
+      height:248px;
+      position:relative;
+      border-radius:999px;
+      border:1px solid var(--edge);
+      background:radial-gradient(circle at 28% 20%, #2a3d60 0%, #17263e 48%, #0e1829 100%);
+      box-shadow: inset 0 10px 24px rgba(255,255,255,.05), inset 0 -14px 26px rgba(0,0,0,.42), 0 14px 24px rgba(0,0,0,.35);
+    }
+    .dpad::before {
+      content:"";
+      position:absolute;
+      inset:92px;
+      border-radius:999px;
+      border:1px solid #3a517a;
+      background:radial-gradient(circle, #1c2b45 0%, #111b2f 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+      z-index:1;
+    }
+    .dpad button {
+      position:absolute;
+      width:78px;
+      height:78px;
+      border-radius:18px;
+      font-size:12px;
+      line-height:1.1;
+      z-index:2;
+      border-color:#3f5884;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      box-shadow: 0 7px 12px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .dpad button i {
+      font-size:28px;
+      line-height:1;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,.35));
+    }
+    .dpad .up { left:85px; top:12px; background:linear-gradient(180deg,#375c93,#27446f); }
+    .dpad .down { left:85px; bottom:12px; background:linear-gradient(180deg,#7b4b4b,#5a3535); border-color:#8f5858; }
+    .dpad .left { left:12px; top:85px; background:linear-gradient(180deg,#314f7f,#243c60); }
+    .dpad .right { right:12px; top:85px; background:linear-gradient(180deg,#2a7268,#1f554d); border-color:#3a8a80; }
+    .dpad button.active {
+      filter:brightness(1.2);
+      transform:scale(.95);
+      box-shadow:0 3px 8px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.08);
+    }
+    .stick-zone {
+      position:absolute;
+      inset:88px;
+      z-index:3;
+      border-radius:999px;
+      border:1px dashed rgba(170,195,240,.35);
+      display:grid;
+      place-items:center;
+      background:radial-gradient(circle, rgba(77,117,184,.15), transparent 70%);
+      touch-action:none;
+    }
+    .stick {
+      width:42px;
+      height:42px;
+      border-radius:999px;
+      border:1px solid #8ca6d7;
+      background:radial-gradient(circle at 35% 30%, #d5e2ff 0%, #8aa8dd 38%, #4a6696 100%);
+      box-shadow:0 8px 14px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.4);
+      transform:translate(var(--sx, 0px), var(--sy, 0px));
+      transition:transform .08s linear;
+    }
+    .stick.dragging { transition:none; }
+    .options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    button { border:1px solid var(--line); background:#1a2841; color:var(--text); border-radius:12px; font-size:1rem; font-weight:700; padding:12px; min-height:52px; cursor:pointer; transition: transform .08s ease, filter .08s ease; box-shadow:0 6px 14px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.07); }
+    button.primary { background:#17423f; border-color:#256b65; }
+    button:hover { filter:brightness(1.06); }
+    button:active { transform:scale(.97); }
+    .big { grid-column:1/-1; min-height:62px; font-size:1.03rem; }
+    .status { text-align:center; font-size:.82rem; color:var(--muted); border-top:1px solid var(--line); padding-top:8px; }
+    .notif-wrap { border:1px solid var(--line); border-radius:12px; padding:10px; max-height:260px; overflow:auto; background:#0f1a2d; }
+    .notif { border:1px solid #345; border-radius:8px; padding:8px; margin-bottom:8px; }
+    .tag { display:inline-block; font-size:11px; font-weight:700; padding:2px 6px; border-radius:999px; margin-right:6px; }
+    .tag.mao { background:#5c3b16; color:#ffd8a8; }
+    .tag.duvida { background:#1f3d63; color:#cce4ff; }
+  </style>
+</head>
+<body>
+  <main class="remote">
+    <div class="top">
+      <h1 class="title" id="lessonTitle">Controle Remoto</h1>
+      <p class="sub" id="lessonSub">Carregando slides...</p>
+    </div>
+
+    <div class="counter" id="counter">Slide 0 de 0</div>
+    <div class="sessao" id="sessionInfo">Sessão: criando...</div>
+
+    <div class="preview">
+      <img id="slideImage" alt="Imagem do slide" />
+      <div class="meta"><p id="slideTitle">Sem título</p></div>
+    </div>
+
+    <div class="buttons">
+      <div class="dpad-wrap">
+        <div class="dpad">
+          <button id="openImageBtn" class="up" type="button" title="Abrir imagem" aria-label="Abrir imagem"><i class="fa-solid fa-image"></i></button>
+          <button id="closeImageBtn" class="down" type="button" title="Fechar imagem" aria-label="Fechar imagem"><i class="fa-solid fa-circle-xmark"></i></button>
+          <button id="prevBtn" class="left" type="button" title="Slide anterior" aria-label="Slide anterior"><i class="fa-solid fa-arrow-left"></i></button>
+          <button id="nextBtn" class="right" type="button" title="Próximo slide" aria-label="Próximo slide"><i class="fa-solid fa-arrow-right"></i></button>
+          <div id="stickZone" class="stick-zone" aria-label="Controle analógico">
+            <div id="stick" class="stick"></div>
+          </div>
+        </div>
+      </div>
+      <div class="options">
+        <button id="followBtn" type="button">Acompanhar: ON</button>
+        <button id="fullscreenBtn" type="button">Tela cheia</button>
+        <button id="reloadBtn" type="button">Recarregar</button>
+        <button id="clearAllBtn" type="button">Limpar pendências</button>
+      </div>
+    </div>
+
+    <div class="notif-wrap" id="notifWrap">Sem interações ainda.</div>
+    <div class="status" id="status">Conectando API...</div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const API_BASE = 'https://controle_slides.starkfx.com.br';
+    const CONTROLLER_TOKEN = 'f1a7c3eac7386e1b5423de831d5a1a2134f43ea056eb6b44';
+    const AULA_ID = 1;
+    const FORCED_SESSION_CODE = 'NHCFTHXN';
+    const DEBUG_FLOW = true;
+
+    const state = { slides: [], meta: {}, current: 0, sessionCode: '', acompanharAtivo: true, highlightCleared: false, imageOpen: false };
+    const ui = {
+      lessonTitle: document.getElementById('lessonTitle'), lessonSub: document.getElementById('lessonSub'),
+      counter: document.getElementById('counter'), slideImage: document.getElementById('slideImage'),
+      slideTitle: document.getElementById('slideTitle'), status: document.getElementById('status'),
+      sessionInfo: document.getElementById('sessionInfo'), notifWrap: document.getElementById('notifWrap'),
+      prevBtn: document.getElementById('prevBtn'), nextBtn: document.getElementById('nextBtn'),
+      openImageBtn: document.getElementById('openImageBtn'), closeImageBtn: document.getElementById('closeImageBtn'), reloadBtn: document.getElementById('reloadBtn'),
+      followBtn: document.getElementById('followBtn'),
+      clearAllBtn: document.getElementById('clearAllBtn'),
+      fullscreenBtn: document.getElementById('fullscreenBtn'),
+      stickZone: document.getElementById('stickZone'),
+      stick: document.getElementById('stick')
+    };
+
+    function setStatus(text) { ui.status.textContent = text; }
+    function flow(event, payload = {}) {
+      if (!DEBUG_FLOW) return;
+      console.log('[CONTROL_FLOW]', new Date().toISOString(), event, payload);
+    }
+    function toast(icon, title) {
+      if (window.Swal) {
+        window.Swal.fire({ toast: true, position: 'top-end', timer: 1800, showConfirmButton: false, icon, title });
+      }
+    }
+    function renderFollowButton() {
+      ui.followBtn.textContent = `Acompanhar: ${state.acompanharAtivo ? 'ON' : 'OFF'}`;
+      ui.followBtn.style.background = state.acompanharAtivo ? '#17423f' : '#4a2e2e';
+    }
+    function esc(t) { return String(t ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+    async function api(path, opts = {}) {
+      flow('api_request', { path, method: opts.method || 'GET', body: opts.body || null, sessionCode: state.sessionCode, current: state.current + 1 });
+      const res = await fetch(`${API_BASE}${path}`, {
+        ...opts,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${CONTROLLER_TOKEN}`,
+          ...(opts.headers || {})
+        }
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      flow('api_response', { path, method: opts.method || 'GET', data });
+      return data;
+    }
+
+    async function ensureSession() {
+      const saved = FORCED_SESSION_CODE || localStorage.getItem('controle_session_code');
+      if (saved) {
+        try {
+          const info = await api(`/v1/sessoes/${saved}`);
+          state.sessionCode = saved;
+          hydrateFromSession(info.item);
+          ui.sessionInfo.textContent = `Sessão: ${saved}`;
+          return;
+        } catch (_) {}
+      }
+      try {
+        const active = await api(`/v1/sessoes-ativas?aula_id=${AULA_ID}`);
+        if (active.item?.codigo) {
+          state.sessionCode = active.item.codigo;
+          hydrateFromSession(active.item);
+          localStorage.setItem('controle_session_code', state.sessionCode);
+          ui.sessionInfo.textContent = `Sessão: ${state.sessionCode}`;
+          return;
+        }
+      } catch (_) {}
+      const created = await api('/v1/sessoes', { method: 'POST', body: JSON.stringify({ aula_id: AULA_ID, iniciado_por: 'controle-mobile' }) });
+      state.sessionCode = created.item.codigo;
+      hydrateFromSession(created.item);
+      localStorage.setItem('controle_session_code', state.sessionCode);
+      ui.sessionInfo.textContent = `Sessão: ${state.sessionCode}`;
+    }
+
+    function hydrateFromSession(item) {
+      if (!item) return;
+      const slideAtual = Number(item.slide_atual || 1);
+      const max = Math.max(0, state.slides.length - 1);
+      state.current = Math.max(0, Math.min(slideAtual - 1, max));
+      state.acompanharAtivo = Boolean(item.acompanhar_ativo ?? true);
+      state.imageOpen = Boolean(item.imagem_aberta);
+      renderFollowButton();
+      render();
+    }
+
+    function render() {
+      const total = state.slides.length;
+      const slide = state.slides[state.current];
+      if (!slide) return;
+      ui.counter.textContent = `Slide ${state.current + 1} de ${total}`;
+      ui.slideTitle.textContent = slide.titulo || 'Sem título';
+      ui.slideImage.src = slide.imagem || '';
+      ui.prevBtn.disabled = state.current === 0;
+      ui.nextBtn.disabled = state.current === total - 1;
+    }
+
+    async function pushRemote(imagemAberta = false) {
+      if (!state.sessionCode) return;
+      flow('push_remote_before', { sessionCode: state.sessionCode, slide: state.current + 1, imagemAberta, acompanhar: state.acompanharAtivo });
+      await api(`/v1/sessoes/${state.sessionCode}/controle`, {
+        method: 'PATCH',
+        body: JSON.stringify({ slide_atual: state.current + 1, imagem_aberta: Boolean(imagemAberta), acompanhar_ativo: state.acompanharAtivo })
+      });
+      state.imageOpen = Boolean(imagemAberta);
+      flow('push_remote_after', { sessionCode: state.sessionCode, slide: state.current + 1, imageOpen: state.imageOpen });
+    }
+
+    async function goTo(index) {
+      const max = state.slides.length - 1;
+      state.current = Math.max(0, Math.min(index, max));
+      render();
+      flow('goto_local', { current: state.current + 1, imageOpen: state.imageOpen });
+      try {
+        if (state.imageOpen) {
+          await pushRemote(false);
+          setStatus('Imagem fechada e slide enviado.');
+          return;
+        } else {
+          await pushRemote(false);
+        }
+        setStatus('Slide enviado para tela/alunos.');
+      }
+      catch (e) { setStatus(`Falha ao sincronizar: ${e.message}`); }
+    }
+
+    async function loadSlides() {
+      try {
+        setStatus('Carregando dados...');
+        const res = await fetch('../conteudo_apresentacao.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Falha ao carregar JSON');
+        const data = await res.json();
+        state.meta = data.meta || {};
+        state.slides = Array.isArray(data.slides) ? data.slides : [];
+        state.current = 0;
+        if (!state.slides.length) throw new Error('Sem slides no arquivo');
+        ui.lessonTitle.textContent = state.meta.titulo || 'Controle Remoto';
+        ui.lessonSub.textContent = state.meta.subtitulo || 'Use os botões para controlar';
+        await ensureSession();
+        await pushRemote(state.imageOpen);
+        setStatus('Pronto. Controle remoto ativo.');
+      } catch (e) {
+        setStatus(`Erro: ${e.message}`);
+      }
+    }
+
+    async function openImageRemote() {
+      const url = state.slides[state.current]?.imagem;
+      if (!url) { setStatus('Este slide não possui imagem.'); return; }
+      flow('open_image_requested', { slide: state.current + 1, hasImage: !!url });
+      try { await pushRemote(true); setStatus('Comando de abrir imagem enviado.'); }
+      catch (e) { setStatus(`Falha ao enviar imagem: ${e.message}`); }
+    }
+    async function closeImageRemote() {
+      flow('close_image_requested', { slide: state.current + 1 });
+      try { await pushRemote(false); setStatus('Comando de fechar imagem enviado.'); }
+      catch (e) { setStatus(`Falha ao fechar imagem: ${e.message}`); }
+    }
+
+    async function markRead(id, tipo) {
+      try {
+        await api(`/v1/duvidas/${id}`, { method: 'PATCH', body: JSON.stringify({ status: 'lida' }) });
+        await clearHighlight();
+        toast('success', 'Interação atualizada');
+        await pollNotifications();
+      } catch (e) {
+        setStatus(`Erro ao marcar como lida: ${e.message}`);
+        toast('error', 'Falha ao atualizar');
+      }
+    }
+
+    async function clearHighlight() {
+      if (!state.sessionCode) return;
+      await api(`/v1/sessoes/${state.sessionCode}/controle`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          slide_atual: state.current + 1,
+          imagem_aberta: false,
+          acompanhar_ativo: state.acompanharAtivo,
+          destaque_ativo: false,
+          destaque_tipo: null,
+          destaque_nome: null,
+          destaque_mensagem: null
+        })
+      });
+      state.highlightCleared = true;
+    }
+
+    async function clearAll() {
+      if (!state.sessionCode) return;
+      try {
+        await api(`/v1/sessoes/${state.sessionCode}/duvidas/limpar`, { method: 'PATCH', body: JSON.stringify({}) });
+        await clearHighlight();
+        toast('success', 'Pendências limpas');
+        await pollNotifications();
+      } catch (e) {
+        setStatus(`Erro ao limpar: ${e.message}`);
+        toast('error', 'Falha ao limpar');
+      }
+    }
+
+    async function showOnScreen(item) {
+      try {
+        await api(`/v1/sessoes/${state.sessionCode}/controle`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+            slide_atual: state.current + 1,
+            imagem_aberta: false,
+            acompanhar_ativo: state.acompanharAtivo,
+            destaque_ativo: true,
+            destaque_tipo: item.tipo === 'mao' ? 'mao' : 'duvida',
+            destaque_nome: item.aluno_nome || 'Aluno',
+            destaque_mensagem: item.tipo === 'mao' ? 'Levantou a mão.' : (item.mensagem || '')
+          })
+        });
+        state.highlightCleared = false;
+        toast('success', 'Exibido na tela');
+      } catch (e) {
+        toast('error', `Falha: ${e.message}`);
+      }
+    }
+
+    async function pollNotifications() {
+      if (!state.sessionCode) return;
+      try {
+        const data = await api(`/v1/sessoes/${state.sessionCode}/duvidas?status=nova`);
+        const items = Array.isArray(data.items) ? data.items : [];
+        if (!items.length) {
+          ui.notifWrap.innerHTML = 'Sem interações novas.';
+          if (!state.highlightCleared) {
+            await clearHighlight();
+          }
+          return;
+        }
+        state.highlightCleared = false;
+        ui.notifWrap.innerHTML = items.map((it) => {
+          const tipo = it.tipo === 'mao' ? 'mao' : 'duvida';
+          const tipoLabel = tipo === 'mao' ? 'MÃO LEVANTADA' : 'DÚVIDA';
+          const msg = tipo === 'mao' ? 'Solicitou atenção do professor.' : esc(it.mensagem || '');
+          const showBtn = tipo === 'duvida'
+            ? `<button type="button" data-show='${JSON.stringify({ id: it.id, tipo: it.tipo, aluno_nome: it.aluno_nome || "", mensagem: it.mensagem || "" }).replaceAll("'", "&#39;")}' style="width:100%;padding:8px;border-radius:8px;">Mostrar na tela</button>`
+            : `<button type="button" style="width:100%;padding:8px;border-radius:8px;opacity:.45;cursor:not-allowed;" disabled>Sem destaque</button>`;
+          return `<article class="notif">
+            <p style="margin:0 0 6px;font-size:12px;opacity:.85;"><span class="tag ${tipo}">${tipoLabel}</span>${esc(it.aluno_nome || 'Aluno')} • ${esc(it.created_at || '')}</p>
+            <p style="margin:0 0 8px;">${msg}</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              ${showBtn}
+              <button type="button" data-read="${it.id}" style="width:100%;padding:8px;border-radius:8px;">${tipo === 'mao' ? 'Abaixar mão' : 'Marcar como lida'}</button>
+            </div>
+          </article>`;
+        }).join('');
+        ui.notifWrap.querySelectorAll('[data-read]').forEach((b) => {
+          const card = b.closest('.notif');
+          const isMao = card?.querySelector('.tag.mao') !== null;
+          b.addEventListener('click', () => markRead(Number(b.dataset.read), isMao ? 'mao' : 'duvida'));
+        });
+        ui.notifWrap.querySelectorAll('[data-show]').forEach((b) => b.addEventListener('click', () => {
+          try { showOnScreen(JSON.parse(b.dataset.show)); } catch (_) {}
+        }));
+      } catch (e) {
+        ui.notifWrap.textContent = `Erro ao carregar interações: ${e.message}`;
+      }
+    }
+
+    ui.prevBtn.addEventListener('click', () => goTo(state.current - 1));
+    ui.nextBtn.addEventListener('click', () => goTo(state.current + 1));
+    ui.openImageBtn.addEventListener('click', openImageRemote);
+    ui.closeImageBtn.addEventListener('click', closeImageRemote);
+    ui.followBtn.addEventListener('click', async () => {
+      state.acompanharAtivo = !state.acompanharAtivo;
+      renderFollowButton();
+      try {
+        await pushRemote(false);
+      } catch (e) {
+        setStatus(`Falha ao atualizar acompanhar: ${e.message}`);
+      }
+    });
+    ui.reloadBtn.addEventListener('click', loadSlides);
+    ui.clearAllBtn.addEventListener('click', clearAll);
+    ui.fullscreenBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) { document.documentElement.requestFullscreen?.(); return; }
+      document.exitFullscreen?.();
+    });
+
+    initAnalogStick();
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') goTo(state.current + 1);
+      if (e.key === 'ArrowLeft') goTo(state.current - 1);
+    });
+
+    renderFollowButton();
+    loadSlides().then(() => { setInterval(pollNotifications, 1800); pollNotifications(); });
+
+    function pulseBtn(btn) {
+      btn.classList.add('active');
+      setTimeout(() => btn.classList.remove('active'), 120);
+    }
+
+    function initAnalogStick() {
+      const zone = ui.stickZone;
+      const stick = ui.stick;
+      if (!zone || !stick) return;
+      let dragging = false;
+      let currentDir = '';
+      const max = 30;
+
+      const runDir = (dir) => {
+        if (dir === 'left') { pulseBtn(ui.prevBtn); goTo(state.current - 1); }
+        if (dir === 'right') { pulseBtn(ui.nextBtn); goTo(state.current + 1); }
+        if (dir === 'up') { pulseBtn(ui.openImageBtn); openImageRemote(); }
+        if (dir === 'down') { pulseBtn(ui.closeImageBtn); closeImageRemote(); }
+      };
+
+      const setStick = (dx, dy) => {
+        const dist = Math.hypot(dx, dy);
+        const ratio = dist > max ? max / dist : 1;
+        stick.style.setProperty('--sx', `${dx * ratio}px`);
+        stick.style.setProperty('--sy', `${dy * ratio}px`);
+      };
+
+      const detectDir = (dx, dy) => {
+        if (Math.hypot(dx, dy) < 16) return '';
+        if (Math.abs(dx) > Math.abs(dy)) return dx > 0 ? 'right' : 'left';
+        return dy > 0 ? 'down' : 'up';
+      };
+
+      const onMove = (clientX, clientY) => {
+        const rect = zone.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = clientX - cx;
+        const dy = clientY - cy;
+        setStick(dx, dy);
+        currentDir = detectDir(dx, dy);
+      };
+
+      const resetStick = () => {
+        dragging = false;
+        const dirToRun = currentDir;
+        currentDir = '';
+        if (dirToRun) {
+          runDir(dirToRun);
+        }
+        stick.classList.remove('dragging');
+        stick.style.setProperty('--sx', '0px');
+        stick.style.setProperty('--sy', '0px');
+      };
+
+      zone.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        stick.classList.add('dragging');
+        zone.setPointerCapture?.(e.pointerId);
+        onMove(e.clientX, e.clientY);
+      });
+      zone.addEventListener('pointermove', (e) => { if (dragging) onMove(e.clientX, e.clientY); });
+      zone.addEventListener('pointerup', resetStick);
+      zone.addEventListener('pointercancel', resetStick);
+      zone.addEventListener('lostpointercapture', resetStick);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{
+    "categoria": "Sistema Cardiovascular",
+    "descricao": "Banco de imagens anatômicas e educacionais para técnicos de enfermagem.",
+    "imagens": [
+        {
+            "id": 1,
+            "titulo": "Anatomia superficial anterior do coração",
+            "descricao": "Vista anterior do coração humano com vasos principais.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Blausen_0451_Heart_Anterior.png"
+        },
+        {
+            "id": 2,
+            "titulo": "Anatomia posterior do coração",
+            "descricao": "Vista posterior do coração humano.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Blausen_0456_Heart_Posterior.png"
+        },
+        {
+            "id": 3,
+            "titulo": "Coração em corte anatômico",
+            "descricao": "Corte do coração mostrando átrios, ventrículos, valvas e fluxo sanguíneo.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/1/12/Blausen_0457_Heart_SectionalAnatomy.png"
+        },
+        {
+            "id": 4,
+            "titulo": "Valvas cardíacas com ventrículos relaxados",
+            "descricao": "Ilustração das valvas cardíacas durante a fase de relaxamento ventricular.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Blausen_0460_Heart_VentriclesRelaxed.png"
+        },
+        {
+            "id": 5,
+            "titulo": "Anatomia geral do coração",
+            "descricao": "Imagem anatômica geral do coração humano.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Blausen_0462_HeartAnatomy.png"
+        },
+        {
+            "id": 6,
+            "titulo": "Vasos coronários anteriores",
+            "descricao": "Artérias e vasos coronários na face anterior do coração.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Blausen_0260_CoronaryVessels_Anterior.png"
+        },
+        {
+            "id": 7,
+            "titulo": "Parede do coração",
+            "descricao": "Camadas da parede cardíaca.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/3/35/2004_Heart_Wall.jpg"
+        },
+        {
+            "id": 8,
+            "titulo": "Musculatura cardíaca",
+            "descricao": "Representação da musculatura do coração.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/0/0e/2006_Heart_Musculature.jpg"
+        },
+        {
+            "id": 9,
+            "titulo": "Anatomia interna do coração",
+            "descricao": "Imagem interna do coração com cavidades e estruturas principais.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/9/92/2008_Internal_Anatomy_of_the_HeartN.jpg"
+        },
+        {
+            "id": 10,
+            "titulo": "Cordas tendíneas e músculos papilares",
+            "descricao": "Estruturas internas relacionadas ao funcionamento das valvas cardíacas.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/a/a7/2010_Chordae_Tendinae_Papillary_Muscles.jpg"
+        },
+        {
+            "id": 11,
+            "titulo": "Valvas do coração",
+            "descricao": "Ilustração das valvas cardíacas.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/b/b9/2011_Heart_Valves.jpg"
+        },
+        {
+            "id": 12,
+            "titulo": "Nó sinoatrial e condução elétrica",
+            "descricao": "Sistema de condução elétrica do coração, incluindo nó sinoatrial.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/a/a4/2020_SA_Node_Tracing.jpg"
+        },
+        {
+            "id": 13,
+            "titulo": "Fases do ciclo cardíaco",
+            "descricao": "Representação das fases do ciclo cardíaco.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/3/38/2027_Phases_of_the_Cardiac_Cycle.jpg"
+        },
+        {
+            "id": 14,
+            "titulo": "Ciclo cardíaco e eletrocardiograma",
+            "descricao": "Relação entre ciclo cardíaco e traçado de ECG.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/8/8d/2028_Cardiac_Cycle_vs_Electrocardiogram.jpg"
+        },
+        {
+            "id": 15,
+            "titulo": "Ciclo cardíaco e bulhas cardíacas",
+            "descricao": "Relação entre ciclo cardíaco e sons cardíacos.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/f/f3/2029_Cardiac_Cycle_vs_Heart_Sounds.jpg"
+        },
+        {
+            "id": 16,
+            "titulo": "Inervação autonômica do coração",
+            "descricao": "Representação da inervação autonômica cardíaca.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/4/4c/2032_Automatic_Innervation.jpg"
+        },
+        {
+            "id": 17,
+            "titulo": "Aterosclerose",
+            "descricao": "Ilustração de placa aterosclerótica em vaso sanguíneo.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/f/f6/2113ab_Atherosclerosis.jpg"
+        },
+        {
+            "id": 18,
+            "titulo": "Leito capilar",
+            "descricao": "Diagrama de arteríola, capilares, vênula e esfíncteres pré-capilares.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/4/49/2105_Capillary_Bed.jpg"
+        },
+        {
+            "id": 19,
+            "titulo": "Sistema circulatório humano",
+            "descricao": "Representação geral do coração e da circulação sanguínea no corpo humano.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Human_Heart_and_Circulatory_System.png"
+        },
+        {
+            "id": 20,
+            "titulo": "Artérias coronárias",
+            "descricao": "Diagrama das artérias coronárias responsáveis pela irrigação do coração.",
+            "url_imagem": "https://upload.wikimedia.org/wikipedia/commons/1/18/Coronary_arteries.svg"
+        }
+    ]
+}

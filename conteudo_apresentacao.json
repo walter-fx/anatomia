@@ -1,24 +1,24 @@
-﻿{
+{
   "meta": {
-    "titulo": "Imunização Segura na Prática",
-    "subtitulo": "Contraindicações, adiamento, EAPV e tomada de decisão",
+    "titulo": "Sistema Cardiovascular Aplicado à Enfermagem",
+    "subtitulo": "Anatomia, fisiologia e raciocínio clínico inicial",
     "professor": "",
     "turma": "",
-    "publico_alvo": "",
-    "carga_horaria": "3 horas"
+    "publico_alvo": "Técnicos de enfermagem e estudantes da saúde",
+    "carga_horaria": "6 a 10 horas"
   },
   "slides": [
     {
       "id": "hero",
       "layout": "hero-wave",
       "kicker": "AULA IMERSIVA",
-      "titulo": "Decisão vacinal com segurança e clareza",
-      "subtitulo": "Uma lógica simples para acertar a conduta na sala de vacina",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/20116/20116_lores.jpg",
+      "titulo": "Sistema Cardiovascular na prática assistencial",
+      "subtitulo": "Do entendimento anatômico à tomada de decisão no cuidado",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Human_Heart_and_Circulatory_System.png",
       "bullets": [
-        "Meta da aula: reduzir oportunidades perdidas de vacinação",
-        "Você sairá com um fluxo de decisão aplicável no plantão",
-        "Foco em conduta: contraindicar, adiar ou vacinar"
+        "O sistema cardiovascular mantém a perfusão e a oxigenação dos tecidos.",
+        "A enfermagem monitora sinais vitais e identifica alterações precoces.",
+        "Meta: conectar teoria anatômica à prática clínica diária."
       ]
     },
     {
@@ -26,370 +26,173 @@
       "layout": "split-cards",
       "kicker": "OBJETIVOS",
       "titulo": "Resultados esperados ao final",
-      "subtitulo": "O que precisa ficar sólido para a prática",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/14277/14277_lores.jpg",
+      "subtitulo": "Competências essenciais para a rotina técnica",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Blausen_0451_Heart_Anterior.png",
       "bullets": [
-        "Diferenciar contraindicação verdadeira de falsa contraindicação",
-        "Reconhecer situações de adiamento temporário",
-        "Conduzir eventos pós-vacinação com registro e orientação",
-        "Aplicar a conduta correta em casos clínicos frequentes"
+        "Identificar estruturas cardíacas e grandes vasos.",
+        "Diferenciar circulação pulmonar e sistêmica.",
+        "Compreender frequência cardíaca, pressão arterial e débito cardíaco.",
+        "Relacionar sinais e sintomas com possíveis alterações cardiovasculares."
       ],
-      "chips": [
-        "Trilha prática",
-        "Decisão clínica",
-        "Aplicação imediata"
-      ]
+      "chips": ["Anatomia", "Fisiologia", "Aplicação clínica"]
     },
     {
-      "id": "triagem",
+      "id": "anatomia-coracao",
       "layout": "focus-left",
-      "kicker": "",
-      "titulo": "Triagem pré-vacinal em 60 segundos",
-      "subtitulo": "Antes da dose, valide quatro pontos essenciais",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9409/9409_lores.jpg",
+      "kicker": "ANATOMIA",
+      "titulo": "Coração: localização e cavidades",
+      "subtitulo": "Estrutura central da bomba cardíaca",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/1/12/Blausen_0457_Heart_SectionalAnatomy.png",
       "bullets": [
-        "Estado clínico atual: leve, moderado ou grave",
-        "Histórico de reação grave a dose/componente",
-        "Condição de imunossupressão ou gestação",
-        "Se adiar: registrar motivo e data de retorno"
+        "Localiza-se no mediastino, entre os pulmões, com leve desvio à esquerda.",
+        "Possui quatro cavidades: dois átrios e dois ventrículos.",
+        "O lado direito recebe sangue venoso; o esquerdo ejeta sangue arterial."
       ]
     },
     {
-      "id": "contraindicacoes",
+      "id": "valvulas",
       "layout": "grid-poster",
-      "kicker": "",
-      "titulo": "Quando contraindicar",
-      "subtitulo": "Contraindicação verdadeira é exceção, mas precisa ser reconhecida",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9417/9417_lores.jpg",
+      "kicker": "FLUXO UNIDIRECIONAL",
+      "titulo": "Valvas cardíacas",
+      "subtitulo": "Evitar refluxo e manter a eficiência hemodinâmica",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/b/b9/2011_Heart_Valves.jpg",
       "bullets": [
-        "Imunodeficiência importante para vacinas vivas atenuadas",
-        "Neoplasia maligna em atividade",
-        "Uso de terapia imunossupressora em curso",
-        "Gestação: avaliar risco-benefício conforme protocolo"
+        "Tricúspide e mitral: entre átrios e ventrículos.",
+        "Pulmonar e aórtica: saída dos ventrículos.",
+        "Disfunções valvares podem gerar sopros e repercussão clínica."
       ]
     },
     {
-      "id": "adiamento",
+      "id": "vasos",
       "layout": "timeline-soft",
-      "kicker": "",
-      "titulo": "Quando adiar temporariamente",
-      "subtitulo": "Adiar com critério, sem perder a oportunidade de vacinar",
-      "imagem": "https://bkt-sa-east-1-cms-drupal.s3.sa-east-1.amazonaws.com/laboratorioexame.com.br/2021-03/Vacina%20da%20gripe%20Exame.jpg?GtZbWfXZ2MsOYgkWYu4j5RQbWPvsapX7",
+      "kicker": "CIRCULAÇÃO",
+      "titulo": "Artérias, veias e capilares",
+      "subtitulo": "Função e diferença estrutural",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/4/49/2105_Capillary_Bed.jpg",
       "bullets": [
-        "Doença febril moderada ou grave no dia da aplicação",
-        "Uso recente de hemoderivados em vacinas específicas",
-        "Aguardar 6 a 8 semanas quando indicado pelo protocolo",
-        "Programar retorno e manter rastreabilidade da decisão"
+        "Artérias: conduzem sangue para fora do coração sob maior pressão.",
+        "Veias: retornam sangue ao coração e podem ter válvulas.",
+        "Capilares: local principal de troca gasosa e metabólica."
       ]
     },
     {
-      "id": "falsas",
+      "id": "circuitos",
       "layout": "highlight-banner",
-      "kicker": "",
-      "titulo": "Quando vacinar (falsas contraindicações)",
-      "subtitulo": "Sintomas leves não devem barrar a vacinação",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9423/9423_lores.jpg",
+      "kicker": "TRAJETO DO SANGUE",
+      "titulo": "Pulmonar x Sistêmica",
+      "subtitulo": "Do coração aos pulmões e aos tecidos",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Blausen_0462_HeartAnatomy.png",
       "bullets": [
-        "Resfriado leve com estado geral preservado",
-        "Coriza, tosse leve e diarreia leve/moderada",
-        "Uso de antibiótico para quadro leve",
-        "Prematuridade e baixo peso: avaliar protocolos específicos"
+        "Circulação pulmonar: hematose e eliminação de CO2.",
+        "Circulação sistêmica: entrega de oxigênio e nutrientes aos órgãos.",
+        "A integração dos circuitos mantém a homeostase."
       ]
     },
     {
-      "id": "eapv",
+      "id": "fisiologia",
       "layout": "image-frame",
-      "kicker": "",
-      "titulo": "EAPV: reconhecer e conduzir",
-      "subtitulo": "Evento pós-vacinação exige análise, não conclusão automática",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/21413/21413_lores.jpg",
+      "kicker": "FISIOLOGIA",
+      "titulo": "Frequência, pressão e débito cardíaco",
+      "subtitulo": "Indicadores-chave na monitorização de enfermagem",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/3/38/2027_Phases_of_the_Cardiac_Cycle.jpg",
       "bullets": [
-        "Eventos esperados: dor local, febre baixa, mal-estar",
-        "Eventos graves: investigar e classificar adequadamente",
-        "Registrar no prontuário e orientar sinais de alerta",
-        "Notificar conforme fluxo institucional"
+        "Frequência cardíaca de repouso no adulto: 60 a 100 bpm.",
+        "Pressão arterial reflete a força do sangue nas paredes arteriais.",
+        "Débito cardíaco relaciona frequência e volume sistólico."
       ]
     },
     {
-      "id": "gestantes",
+      "id": "conducao",
       "layout": "split-cards",
-      "kicker": "GRUPO ESPECIAL",
-      "titulo": "Vacinação em gestantes",
-      "subtitulo": "Conduta segura para proteger mãe e bebê",
-      "imagem": "https://www.vacincare.com.br/wp-content/uploads/2020/10/img-blog-1.jpg",
+      "kicker": "ELETROFISIOLOGIA",
+      "titulo": "Sistema de condução cardíaca",
+      "subtitulo": "Do nó SA às fibras de Purkinje",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/a/a4/2020_SA_Node_Tracing.jpg",
       "bullets": [
-        "Priorizar vacinas recomendadas na gestação conforme protocolo vigente",
-        "dTpa: indicar em cada gestação, na janela recomendada",
-        "Influenza: pode ser aplicada em qualquer fase gestacional",
-        "Vacinas vivas atenuadas: em geral contraindicadas durante a gestação",
-        "Se houver adiamento, registrar e programar a vacinação no puerpério"
+        "Nó sinoatrial: marca-passo natural.",
+        "Nó atrioventricular: retardo fisiológico para sincronização.",
+        "Feixe de His e Purkinje: propagação rápida do estímulo ventricular."
       ],
-      "chips": [
-        "Proteção materna",
-        "Proteção neonatal",
-        "Conduta protocolada"
-      ]
-    },
-    {
-      "id": "sete-certos",
-      "layout": "split-cards",
-      "kicker": "PRÁTICA SEGURA",
-      "titulo": "7 certos da enfermagem na vacinação",
-      "subtitulo": "Checklist rápido para reduzir erro e aumentar segurança",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9410/9410_lores.jpg",
-      "bullets": [
-        "Paciente certo: confirmar identificação antes da aplicação",
-        "Vacina certa: conferir nome, composição e indicação",
-        "Dose certa: validar volume e faixa etária",
-        "Via certa: intramuscular, subcutânea, oral ou intradérmica conforme protocolo",
-        "Tempo certo: respeitar calendário, intervalo e oportunidade da dose",
-        "Registro certo: lote, validade, local de aplicação e profissional",
-        "Orientação certa: explicar cuidados, sinais de alerta e retorno"
-      ],
-      "chips": [
-        "Checklist pré-aplicação",
-        "Segurança do paciente",
-        "Qualidade assistencial"
-      ]
-    },
-    {
-      "id": "antigeno",
-      "layout": "split-cards",
-      "kicker": "CONCEITO-CHAVE",
-      "titulo": "O que é antígeno?",
-      "subtitulo": "Elemento que o sistema imune reconhece como alvo de resposta",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9418/9418_lores.jpg",
-      "bullets": [
-        "Antígeno é uma substância capaz de ser reconhecida pelo sistema imunológico",
-        "Pode ser parte de vírus, bactéria, toxina ou proteína produzida em laboratório",
-        "Ao identificar o antígeno, o organismo produz anticorpos e ativa células de defesa",
-        "Vacinas apresentam antígenos de forma segura para treinar a resposta imune",
-        "Esse treino reduz risco de formas graves quando houver contato real com o agente"
-      ],
-      "chips": [
-        "Reconhecimento imune",
-        "Produção de anticorpos",
-        "Base da vacinação"
-      ]
-    },
-    {
-      "id": "tipo-viva-atenuada",
-      "layout": "split-cards",
-      "kicker": "TIPOS DE VACINA",
-      "titulo": "Vacinas vivas atenuadas",
-      "subtitulo": "Microrganismo enfraquecido, com resposta imune robusta",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9409/9409_lores.jpg",
-      "bullets": [
-        "Contêm agente vivo com virulência reduzida",
-        "Geralmente induzem boa memória imune com menos doses",
-        "Exigem atenção em imunossuprimidos e gestantes",
-        "Exemplos no PNI: tríplice viral, varicela, febre amarela",
-        "Contraindicação principal: imunossupressão importante e gestação (além de anafilaxia prévia a dose/componente)"
-      ],
-      "chips": [
-        "Alta imunogenicidade",
-        "Avaliar contraindicações",
-        "Risco-benefício clínico"
-      ]
-    },
-    {
-      "id": "tipo-inativada",
-      "layout": "split-cards",
-      "kicker": "TIPOS DE VACINA",
-      "titulo": "Vacinas inativadas",
-      "subtitulo": "Agente morto ou fragmentado, sem risco de causar doença",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9417/9417_lores.jpg",
-      "bullets": [
-        "Não possuem microrganismo viável para replicação",
-        "Perfil de segurança amplo para grupos especiais",
-        "Podem demandar reforços para manter proteção",
-        "Exemplos: hepatite A, raiva, VIP, influenza inativada",
-        "Contraindicação principal: anafilaxia após dose anterior ou alergia grave a componente; em doença febril moderada/grave, adiar"
-      ],
-      "chips": [
-        "Sem replicação",
-        "Segurança ampliada",
-        "Reforços programados"
-      ]
-    },
-    {
-      "id": "tipo-toxoide",
-      "layout": "split-cards",
-      "kicker": "TIPOS DE VACINA",
-      "titulo": "Vacinas toxoides",
-      "subtitulo": "Protegem contra toxinas bacterianas",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9418/9418_lores.jpg",
-      "bullets": [
-        "Usam toxinas inativadas (toxoides) como antígeno",
-        "Objetivo principal: neutralizar o efeito tóxico",
-        "Esquema com doses e reforços ao longo do tempo",
-        "Exemplos: dT, dTpa e vacinas contendo componente tetânico/diftérico",
-        "Contraindicação principal: anafilaxia prévia a dose/componente; para vacina com pertussis, avaliar encefalopatia pós-dose anterior"
-      ],
-      "chips": [
-        "Foco anti-toxina",
-        "Reforço periódico",
-        "Importante na gestação"
-      ]
-    },
-    {
-      "id": "tipo-recombinante",
-      "layout": "split-cards",
-      "kicker": "TIPOS DE VACINA",
-      "titulo": "Vacinas recombinantes",
-      "subtitulo": "Antígenos produzidos por engenharia genética",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9423/9423_lores.jpg",
-      "bullets": [
-        "Não utilizam o patógeno completo",
-        "Produção padronizada com boa segurança",
-        "Indicação conforme faixa etária e calendário",
-        "Exemplos: hepatite B e HPV recombinante",
-        "Contraindicação principal: anafilaxia após dose anterior ou alergia grave a componente da formulação"
-      ],
-      "chips": [
-        "Biotecnologia",
-        "Antígeno específico",
-        "Boa tolerabilidade"
-      ]
-    },
-    {
-      "id": "tipo-conjugada",
-      "layout": "split-cards",
-      "kicker": "TIPOS DE VACINA",
-      "titulo": "Vacinas conjugadas",
-      "subtitulo": "Polissacarídeo ligado a proteína para ampliar resposta imune",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9416/9416_lores.jpg",
-      "bullets": [
-        "Melhoram imunogenicidade, principalmente em crianças pequenas",
-        "Reduzem doença invasiva por bactérias encapsuladas",
-        "Esquema com doses primárias e reforço",
-        "Exemplos: pneumocócica conjugada e meningocócicas conjugadas",
-        "Contraindicação principal: anafilaxia prévia a dose/componente; doença febril moderada/grave indica adiamento"
-      ],
-      "chips": [
-        "Resposta aumentada",
-        "Pediatria essencial",
-        "Doença invasiva"
-      ]
-    },
-    {
-      "id": "tipo-mrna",
-      "layout": "split-cards",
-      "kicker": "TIPOS DE VACINA",
-      "titulo": "Vacinas de mRNA",
-      "subtitulo": "Instrução genética temporária para produzir antígeno",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/20116/20116_lores.jpg",
-      "bullets": [
-        "Não alteram DNA e não contêm vírus vivo",
-        "Geram resposta imune com alta efetividade em cenários específicos",
-        "Podem exigir reforços conforme atualização epidemiológica",
-        "Exemplo: vacinas contra COVID-19 baseadas em mRNA",
-        "Contraindicação principal: anafilaxia após dose anterior ou alergia grave a componente (ex.: PEG); avaliar adiamento em miocardite/pericardite ativa"
-      ],
-      "chips": [
-        "Tecnologia recente",
-        "Sem vírus vivo",
-        "Atualização periódica"
-      ]
+      "chips": ["Ritmo", "Sincronia", "Perfusão"]
     },
     {
       "id": "casos",
       "layout": "case-columns",
-      "kicker": "",
-      "titulo": "Casos aplicados à rotina",
-      "subtitulo": "Treine o raciocínio: decidir e justificar",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9410/9410_lores.jpg",
+      "kicker": "ESTUDOS DE CASO",
+      "titulo": "Aplicando no cuidado",
+      "subtitulo": "Raciocínio clínico inicial para a enfermagem",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/f/f6/2113ab_Atherosclerosis.jpg",
       "casos": [
         {
-          "titulo": "Resfriado leve no dia da vacina",
-          "situacao": "Criança com coriza e tosse leve, sem febre e bom estado geral.",
-          "conduta": "Vacinar: cenário de falsa contraindicação."
+          "titulo": "Taquicardia no leito",
+          "situacao": "Paciente com FC de 130 bpm, sudorese e ansiedade.",
+          "conduta": "Reavaliar sinais vitais, investigar gatilhos, comunicar equipe e monitorar evolução."
         },
         {
-          "titulo": "Pós-quimioterapia",
-          "situacao": "Paciente solicita vacina viva atenuada logo após tratamento imunossupressor.",
-          "conduta": "Adiar e reavaliar janela segura conforme protocolo."
+          "titulo": "Dor torácica súbita",
+          "situacao": "Dor precordial irradiando para braço esquerdo.",
+          "conduta": "Reconhecer urgência, acionar protocolo institucional e monitorar continuamente."
         },
         {
-          "titulo": "Evento após vacina",
-          "situacao": "Paciente apresenta dor local e febre baixa após aplicação.",
-          "conduta": "Classificar como evento esperado, orientar e registrar."
+          "titulo": "Hipertensão persistente",
+          "situacao": "PA repetida acima da meta durante plantão.",
+          "conduta": "Confirmar técnica de medida, registrar achados e informar para decisão terapêutica."
         }
       ]
     },
     {
       "id": "quiz",
       "layout": "quiz-accordion",
-      "kicker": "REVISÃO FINAL",
-      "titulo": "10 perguntas do conteúdo visto",
-      "subtitulo": "Cada resposta corresponde aos pontos apresentados nos slides",
-      "imagem": "https://phil.cdc.gov/PHIL_Images/9416/9416_lores.jpg",
+      "kicker": "REVISÃO RÁPIDA",
+      "titulo": "Perguntas essenciais",
+      "subtitulo": "Checagem de compreensão antes do encerramento",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Blausen_0260_CoronaryVessels_Anterior.png",
       "questoes": [
         {
-          "pergunta": "Na triagem de 60 segundos, quais quatro pontos devem ser verificados antes da dose?",
-          "resposta": "Estado clínico atual; reação grave prévia a dose/componente; imunossupressão ou gestação; e registro com retorno quando houver adiamento."
+          "pergunta": "Qual vaso realiza trocas entre sangue e tecidos?",
+          "resposta": "Capilares, devido às paredes finas e alta área de troca."
         },
         {
-          "pergunta": "Qual exemplo do slide 'Quando contraindicar' indica contraindicação verdadeira para vacina viva atenuada?",
-          "resposta": "Imunodeficiência importante, além de outros cenários como neoplasia ativa e terapia imunossupressora em curso."
+          "pergunta": "Qual valva separa átrio esquerdo do ventrículo esquerdo?",
+          "resposta": "Valva mitral."
         },
         {
-          "pergunta": "Qual foi o intervalo citado para aguardar após hemoderivados quando houver indicação protocolar?",
-          "resposta": "Aguardar 6 a 8 semanas, conforme tipo de vacina e protocolo."
+          "pergunta": "Qual estrutura atua como marca-passo natural do coração?",
+          "resposta": "Nó sinoatrial."
         },
         {
-          "pergunta": "Resfriado leve, coriza e tosse leve entram em qual grupo de decisão?",
-          "resposta": "Entram como falsas contraindicações; em geral, deve-se vacinar se o estado geral estiver preservado."
-        },
-        {
-          "pergunta": "No caso com dor local e febre baixa após vacina, qual conduta foi apresentada?",
-          "resposta": "Tratar como evento esperado, orientar sinais de alerta e registrar corretamente."
-        },
-        {
-          "pergunta": "Qual é a contraindicação principal das vacinas vivas atenuadas apresentada na aula?",
-          "resposta": "Imunossupressão importante e gestação, além de anafilaxia prévia a dose ou componente."
-        },
-        {
-          "pergunta": "Qual tipo de vacina usa toxinas inativadas para proteger o paciente?",
-          "resposta": "As vacinas toxoides, como dT e dTpa."
-        },
-        {
-          "pergunta": "Qual vacina foi destacada como podendo ser aplicada em qualquer fase da gestação?",
-          "resposta": "A vacina influenza inativada."
-        },
-        {
-          "pergunta": "Nos 7 certos da enfermagem, quais itens devem obrigatoriamente entrar no registro certo?",
-          "resposta": "Lote, validade, local de aplicação e identificação do profissional."
-        },
-        {
-          "pergunta": "Nas vacinas de mRNA, qual componente foi citado como exemplo de alergia grave para contraindicação?",
-          "resposta": "PEG (polietilenoglicol), além de anafilaxia após dose anterior."
+          "pergunta": "Faixa de frequência cardíaca normal em adulto em repouso?",
+          "resposta": "Em geral, 60 a 100 bpm."
         }
       ]
     },
     {
       "id": "referencias",
       "layout": "references-wall",
-      "kicker": "REFERÊNCIAS",
-      "titulo": "Fontes oficiais para consulta",
-      "subtitulo": "Base técnica utilizada na aula",
-      "imagem": "https://www.camara.leg.br/midias/image/2021/09/sus-logo-arte-1.jpg",
+      "kicker": "ENCERRAMENTO",
+      "titulo": "Mensagens-chave",
+      "subtitulo": "Segurança, monitorização e intervenção precoce",
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Blausen_0456_Heart_Posterior.png",
       "referencias": [
         {
-          "titulo": "Manual de Normas e Procedimentos para Vacinação (Ministério da Saúde)",
-          "url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/manual-de-normas-e-procedimentos-para-vacinacao"
+          "titulo": "Princípios de Anatomia e Fisiologia — Tortora & Derrickson",
+          "url": "https://books.google.com/books?id=mK5VDwAAQBAJ"
         },
         {
-          "titulo": "Manual de Vigilância Epidemiológica de Eventos Adversos Pós-Vacinação (Ministério da Saúde)",
-          "url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/manual-de-vigilancia-epidemiologica-de-eventos-adversos-pos-vacinacao"
+          "titulo": "Tratado de Fisiologia Médica — Guyton & Hall",
+          "url": "https://www.elsevier.com/books/guyton-and-hall-textbook-of-medical-physiology/hall/978-0-323-59712-8"
         },
         {
-          "titulo": "Calendário Nacional de Vacinação (PNI)",
-          "url": "https://www.gov.br/saude/pt-br/vacinacao/calendario"
+          "titulo": "Sociedade Brasileira de Cardiologia (SBC)",
+          "url": "https://www.portal.cardiol.br/"
         },
         {
-          "titulo": "Portal oficial de Vacinação do Ministério da Saúde",
-          "url": "https://www.gov.br/saude/pt-br/vacinacao"
+          "titulo": "OpenStax Anatomy and Physiology",
+          "url": "https://openstax.org/details/books/anatomy-and-physiology"
+        },
+        {
+          "titulo": "Ministério da Saúde",
+          "url": "https://www.gov.br/saude/"
         }
       ]
     }

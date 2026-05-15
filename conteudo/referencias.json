@@ -1,0 +1,44 @@
+{
+    "referencias": [
+        {
+            "id": 1,
+            "titulo": "Princípios de Anatomia e Fisiologia",
+            "autor": "Gerard J. Tortora; Bryan Derrickson",
+            "tipo": "Livro",
+            "link": "https://books.google.com/books?id=mK5VDwAAQBAJ",
+            "descricao": "Referência clássica sobre anatomia e fisiologia humana."
+        },
+        {
+            "id": 2,
+            "titulo": "Tratado de Fisiologia Médica",
+            "autor": "Arthur C. Guyton; John E. Hall",
+            "tipo": "Livro",
+            "link": "https://www.elsevier.com/books/guyton-and-hall-textbook-of-medical-physiology/hall/978-0-323-59712-8",
+            "descricao": "Livro amplamente utilizado para estudo da fisiologia cardiovascular."
+        },
+        {
+            "id": 3,
+            "titulo": "Sociedade Brasileira de Cardiologia",
+            "autor": "SBC",
+            "tipo": "Site Oficial",
+            "link": "https://www.portal.cardiol.br/",
+            "descricao": "Diretrizes e conteúdos atualizados sobre cardiologia."
+        },
+        {
+            "id": 4,
+            "titulo": "OpenStax Anatomy and Physiology",
+            "autor": "OpenStax",
+            "tipo": "Material Educacional",
+            "link": "https://openstax.org/details/books/anatomy-and-physiology",
+            "descricao": "Conteúdo gratuito de anatomia e fisiologia humana."
+        },
+        {
+            "id": 5,
+            "titulo": "Ministério da Saúde",
+            "autor": "Governo Federal",
+            "tipo": "Portal Oficial",
+            "link": "https://www.gov.br/saude/",
+            "descricao": "Portal oficial com materiais e diretrizes em saúde."
+        }
+    ]
+}
