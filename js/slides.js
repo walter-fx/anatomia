@@ -313,7 +313,7 @@ function renderSlide(slide, index, meta) {
                     <span class="browser-dot red"></span>
                     <span class="browser-dot yellow"></span>
                     <span class="browser-dot green"></span>
-                    <span class="address-bar">starkfx.com.br/aulas</span>
+                    <span class="address-bar">walter-fx.github.io/anatomia/</span>
                 </div>
                 <div class="hero-site-body hero-qr-body">
                     <div class="media-loader" aria-hidden="true">
@@ -349,7 +349,7 @@ function renderImage(src, alt) {
                 <span class="browser-dot red"></span>
                 <span class="browser-dot yellow"></span>
                 <span class="browser-dot green"></span>
-                <span class="address-bar">starkfx.com.br/aulas</span>
+                <span class="address-bar">walter-fx.github.io/anatomia/</span>
             </div>
             <div class="media-window-body">
                 <div class="media-loader" aria-hidden="true">
