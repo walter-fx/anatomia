@@ -855,7 +855,7 @@ function bindDoubtsPanel({ modeTela, sessionCode }) {
         let currentSession = sessionCode || "";
         const handBell = document.createElement("div");
         handBell.style.position = "fixed";
-        handBell.style.top = "14px";
+        handBell.style.bottom = "14px";
         handBell.style.right = "14px";
         handBell.style.zIndex = "120";
         handBell.style.width = "54px";
@@ -909,7 +909,7 @@ function bindDoubtsPanel({ modeTela, sessionCode }) {
 
     const fab = document.createElement("div");
     fab.style.position = "fixed";
-    fab.style.right = "14px";
+    fab.style.left = "14px";
     fab.style.bottom = "90px";
     fab.style.zIndex = "80";
     fab.style.display = "grid";
@@ -925,25 +925,41 @@ function bindDoubtsPanel({ modeTela, sessionCode }) {
     if (!maoBtn || !duvidaBtn) {
         return;
     }
+    let maoRequestBusy = false;
+    let maoLevantada = false;
+    const renderMaoBtn = () => {
+        maoBtn.style.background = maoLevantada ? "#a43232" : "#5f4a1d";
+        maoBtn.title = maoLevantada ? "Abaixar a mão" : "Levantar a mão";
+        maoBtn.setAttribute("aria-label", maoBtn.title);
+    };
+    renderMaoBtn();
 
     maoBtn.addEventListener("click", async () => {
+        if (maoRequestBusy) {
+            return;
+        }
         const alunoNome = await ensureStudentName();
         if (!alunoNome) {
             return;
         }
-        let currentSession = sessionCode || getSessionCode() || await resolveActiveSessionCode();
+        let currentSession = FORCED_SESSION_CODE || sessionCode || getSessionCode() || await resolveActiveSessionCode();
         if (!currentSession) {
-            notify("success", "Mão levantada.");
+            notify("error", "Sessão indisponível. Tente novamente.");
             return;
         }
         try {
-            await remoteApi(`/v1/sessoes/${currentSession}/duvidas`, STUDENT_TOKEN, {
+            maoRequestBusy = true;
+            const data = await remoteApi(`/v1/sessoes/${currentSession}/mao`, STUDENT_TOKEN, {
                 method: "POST",
-                body: JSON.stringify({ aluno_nome: alunoNome, mensagem: "", tipo: "mao" })
+                body: JSON.stringify({ aluno_nome: alunoNome, acao: "toggle" })
             });
-            notify("success", "Mão levantada enviada.");
+            maoLevantada = Boolean(data?.levantada);
+            renderMaoBtn();
+            notify("success", maoLevantada ? "Mão levantada." : "Mão abaixada.");
         } catch (error) {
             notify("error", `Falha ao enviar: ${error.message}`);
+        } finally {
+            maoRequestBusy = false;
         }
     });
 
@@ -969,9 +985,9 @@ function bindDoubtsPanel({ modeTela, sessionCode }) {
             mensagem = String(window.prompt("Digite sua dúvida:") || "");
         }
         if (!mensagem || mensagem.trim().length < 4) return;
-        let currentSession = sessionCode || getSessionCode() || await resolveActiveSessionCode();
+        let currentSession = FORCED_SESSION_CODE || sessionCode || getSessionCode() || await resolveActiveSessionCode();
         if (!currentSession) {
-            notify("success", "Dúvida registrada localmente.");
+            notify("error", "Sessão indisponível. Tente novamente.");
             return;
         }
         try {
