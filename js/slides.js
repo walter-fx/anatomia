@@ -1028,6 +1028,8 @@ async function ensureStudentName() {
             input: "text",
             inputPlaceholder: "Digite seu nome",
             confirmButtonText: "Salvar",
+            showDenyButton: true,
+            denyButtonText: "Anônimo",
             showCancelButton: true,
             cancelButtonText: "Cancelar",
             inputValidator: (value) => {
@@ -1038,6 +1040,10 @@ async function ensureStudentName() {
             }
         });
         if (!result.isConfirmed) {
+            if (result.isDenied) {
+                localStorage.setItem(STUDENT_NAME_STORAGE_KEY, "Anônimo");
+                return "Anônimo";
+            }
             return "";
         }
         const name = String(result.value || "").trim().slice(0, 120);
